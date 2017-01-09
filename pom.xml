@@ -13,6 +13,25 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
     <name>Heisenbug Sandbox</name>
+    <description>a sandbox to conduct experiments, mostly on top of spring boot</description>
+    <url>https://github.com/parkerwy/heisenbug-sandbox</url>
+    <organization>
+        <name>Heisenbug</name>
+        <url>https://github.com/parkerwy/heisenbug-sandbox</url>
+    </organization>
+    <scm>
+        <url>https://github.com/parkerwy/heisenbug-sandbox</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>parkerwy</id>
+            <name>Parker Wang</name>
+            <email>parkerwy at gmail dot com</email>
+            <roles>
+                <role>programming and everything else</role>
+            </roles>
+        </developer>
+    </developers>
     <properties>
         <java.version>1.7</java.version>
     </properties>
