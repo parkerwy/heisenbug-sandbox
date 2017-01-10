@@ -1,7 +1,18 @@
 language: java
 jdk:
-  - oraclejdk8
-script: 
-  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_QUBE_TOKEN
+- oraclejdk8
+script:
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar -Dsonar.host.url=https://sonarqube.com
+  -Dsonar.login=$SONAR_QUBE_TOKEN
 notifications:
   email: false
+deploy:
+  provider: cloudfoundry
+  api: https://api.run.pivotal.io
+  username: parkerwy@gmail.com
+  password:
+    secure: TyW/J7ECqp6ut2VDDld66X+Vo7xx/J4g5zGkBJhLwDdc2+aqaZ6NyXgfs/nwEy2CbEhbX+dAcZS3QvwmnchydIAON+Yp1l6NF0TY73LTA+hV5Ragar4nKiDQEOQXs/E92BsUrTnTh9s37pN0atOAL+zz/OogwYOBlM54VgvvAV5lzNGSgR/Ck9Q8Mx1mQ4hkDwB+9ZoqEgFB/F2e+SQrOX8dxUa48mn61uvuRteZtqj9lL69kHuulc5mkgQGPikoLfuS2scTRlslTQfkQE6L+KlFaEMR+eO/fVCijlqNiuvZyL2xE2SgqIZU3vcrx1LIOpYSSjushyfy9aknGj5h+EvtFRzU0Ars0Fm0l6WbZCEsTkB7TNm14U9OVG1LbhR2fWKebG9G4crroe8p69wMi8RLfcjVVHqAH6+ZrHnUquZPcVzx8BRajIrWiPww8Q1zC+uBrMATlpenSbFgiDrEtv95SX+qSstz9A2V2h7KP8ysDnPmptVFWPDK9t43j6nUGlILYCiyu0OsfxBiFgVSPso5YPzIk/BF/ZElGmEn2k8CjFaZjXk/foUb1XCH2XbSLsB/eL+0msVkX4oNAHM6RPFeTvS39CFcUl+Edn06lIgoSSz71KgFAchwA3wBj0RQTPMgwkbzRJ8Kb+FsP7UxIFJ+Mh9y8JAlW4f1nA4tsQY=
+  organization: parkerwy
+  space: development
+  on:
+    repo: parkerwy/heisenbug-sandbox
