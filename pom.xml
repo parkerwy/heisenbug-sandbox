@@ -143,11 +143,6 @@
             <artifactId>querydsl-jpa</artifactId>
         </dependency>
         <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>net.sourceforge.jchardet</groupId>
             <artifactId>jchardet</artifactId>
             <version>1.0</version>

@@ -70,7 +70,7 @@ public class AnywhereLogger {
         for (CtConstructor constructor : constructors) {
             inject(constructor);
         }
-            
+
         CtMethod[] methods = klass.getDeclaredMethods();
         for (CtMethod method : methods) {
             inject(method);
