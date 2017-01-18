@@ -20,7 +20,7 @@ public class SandboxApplicationTest {
 
 
     @Test
-    public void shouldGetRepositorInjected() throws Exception {
+    public void shouldGetRepositoryInjected() throws Exception {
         Assert.assertNotNull(this.employeeRepository);
     }
 }
