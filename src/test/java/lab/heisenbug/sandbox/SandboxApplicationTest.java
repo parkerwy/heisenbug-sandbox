@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.test.context.junit4.SpringRunner;
 
 /**
@@ -22,5 +23,6 @@ public class SandboxApplicationTest {
     @Test
     public void shouldGetRepositoryInjected() throws Exception {
         Assert.assertNotNull(this.employeeRepository);
+
     }
 }
