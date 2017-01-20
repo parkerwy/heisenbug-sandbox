@@ -17,7 +17,7 @@ public class SandboxApplication extends SpringBootServletInitializer {
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        LOGGER.info("building spring boot application.");
+        SandboxApplication.LOGGER.info("building spring boot application.");
         return builder.sources(SandboxApplication.class);
     }
 

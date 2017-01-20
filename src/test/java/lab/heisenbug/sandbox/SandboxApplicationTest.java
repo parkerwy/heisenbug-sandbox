@@ -13,15 +13,6 @@ import org.springframework.test.context.junit4.SpringRunner;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class SandboxApplicationTest {
+public abstract class SandboxApplicationTest {
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-
-    @Test
-    public void shouldGetRepositoryInjected() throws Exception {
-        Assert.assertNotNull(this.employeeRepository);
-
-    }
 }
