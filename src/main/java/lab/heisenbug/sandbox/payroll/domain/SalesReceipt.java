@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * Created by IntelliJ IDEA.
@@ -31,7 +32,8 @@ public class SalesReceipt implements Serializable {
     private CommissionedClassification owner;
 
     @Column(name = "EFFECTIVE_DATE")
-    private DateTime date;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar date;
 
     @Column(name = "AMOUNT")
     private BigDecimal amount;
@@ -48,11 +50,11 @@ public class SalesReceipt implements Serializable {
         this.owner = owner;
     }
 
-    public DateTime getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 

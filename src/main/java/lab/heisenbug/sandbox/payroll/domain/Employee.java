@@ -31,8 +31,8 @@ public class Employee implements Serializable {
     @Column(name = "NAME")
     private String name;
 
-    @Column(name = "MOBILE_PHONE")
-    private String mobilePhone;
+    @Column(name = "PHONE")
+    private String phone;
 
     @NotNull
     @Valid
@@ -62,12 +62,12 @@ public class Employee implements Serializable {
         this.name = name;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
+    public void setPhone(String mobilePhone) {
+        this.phone = mobilePhone;
     }
 
     public PaymentClassification getPaymentClassification() {
@@ -92,7 +92,7 @@ public class Employee implements Serializable {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("name", name)
-                .append("mobilePhone", mobilePhone)
+                .append("mobilePhone", phone)
                 .toString();
     }
 }

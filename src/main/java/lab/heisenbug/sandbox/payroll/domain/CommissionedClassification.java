@@ -60,6 +60,7 @@ public class CommissionedClassification extends PaymentClassification {
 
     public void addSalesReceipt(SalesReceipt saleReceipt) {
         this.salesReceipts.add(saleReceipt);
+        saleReceipt.setOwner(this);
     }
 
     public BigDecimal calculatePay(DateTime date) {
