@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 @Entity
 public class HoldMethod extends PaymentMethod {
 
+    @Override
     public void pay(BigDecimal amount) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

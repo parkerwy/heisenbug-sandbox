@@ -15,6 +15,7 @@ public class SandboxApplication extends SpringBootServletInitializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SandboxApplication.class);
 
+    @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         LOGGER.info("building spring boot application.");
         return builder.sources(SandboxApplication.class);

@@ -32,7 +32,7 @@ public class Subject implements Serializable {
 
     @ManyToMany
     @JoinTable(name = "RBAC_SUBJECT_ROLE", joinColumns = @JoinColumn(name = "SUBJECT_ID"), inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
-    private Set<Role> grantedRoles = new HashSet<Role>();
+    private Set<Role> grantedRoles = new HashSet<>();
 
     public String getCredential() {
         return credential;

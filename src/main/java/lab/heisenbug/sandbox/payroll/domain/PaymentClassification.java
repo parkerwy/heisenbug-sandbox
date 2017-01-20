@@ -67,6 +67,7 @@ public abstract class PaymentClassification implements Serializable, IPaymentCla
         this.employee = employee;
     }
 
+    @Override
     public boolean isPayDay(DateTime date) {
         return schedule.isPayDay(date);
     }

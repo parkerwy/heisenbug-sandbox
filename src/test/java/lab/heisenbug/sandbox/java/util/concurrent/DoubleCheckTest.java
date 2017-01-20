@@ -28,7 +28,7 @@ public class DoubleCheckTest {
 
     @Test
     public void getSingletonInstance() throws InterruptedException {
-        List<Callable<Object>> tasks = new ArrayList<Callable<Object>>();
+        List<Callable<Object>> tasks = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
             tasks.add(new Task());
         }

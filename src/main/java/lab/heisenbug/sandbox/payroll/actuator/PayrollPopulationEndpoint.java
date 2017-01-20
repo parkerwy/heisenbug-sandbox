@@ -6,7 +6,6 @@ import lab.heisenbug.sandbox.payroll.domain.SalesReceipt;
 import lab.heisenbug.sandbox.payroll.domain.method.Bank;
 import lab.heisenbug.sandbox.payroll.domain.method.DirectMethod;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.AbstractEndpoint;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -23,11 +22,12 @@ import java.util.Calendar;
 public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
 
-    @Autowired
-    private EmployeeRepository employeeRepository;
+    private final EmployeeRepository employeeRepository;
 
-    public PayrollPopulationEndpoint() {
+    @Autowired
+    public PayrollPopulationEndpoint(EmployeeRepository employeeRepository) {
         super("payrollPopulation");
+        this.employeeRepository = employeeRepository;
     }
 
     @Override

@@ -22,7 +22,7 @@ public class BigDecimalTest {
     public void createFromString() {
         String input = "00007438.7898379580000";
         BigDecimal salary = new BigDecimal(input).setScale(2, RoundingMode.DOWN);
-        logger.info("value:{}, scale:{}, precision:{}", new Object[]{salary.toPlainString(), salary.scale(), salary.precision()});
+        logger.info("value:{}, scale:{}, precision:{}", salary.toPlainString(), salary.scale(), salary.precision());
 
     }
 

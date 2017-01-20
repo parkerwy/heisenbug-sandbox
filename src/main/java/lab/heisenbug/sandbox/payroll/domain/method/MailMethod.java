@@ -27,6 +27,7 @@ public class MailMethod extends PaymentMethod {
         this.address = address;
     }
 
+    @Override
     public void pay(BigDecimal amount) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

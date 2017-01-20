@@ -39,6 +39,7 @@ public class DirectMethod extends PaymentMethod {
         this.account = account;
     }
 
+    @Override
     public void pay(BigDecimal amount) {
         //To change body of implemented methods use File | Settings | File Templates.
     }

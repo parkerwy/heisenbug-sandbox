@@ -28,7 +28,7 @@ public class ExecutorServiceTest {
     public void timeoutOnInvoke() {
         ExecutorService service = Executors.newFixedThreadPool(2);
 
-        List<Future> results = new ArrayList<Future>();
+        List<Future> results = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             Future reslut = service.submit(new Task("Job" + (i + 1)));
@@ -38,9 +38,7 @@ public class ExecutorServiceTest {
         for (Future result : results) {
             try {
                 result.get(300, TimeUnit.MICROSECONDS);
-            } catch (InterruptedException e) {
-                logger.error(e.getMessage(), e);
-            } catch (ExecutionException e) {
+            } catch (InterruptedException | ExecutionException e) {
                 logger.error(e.getMessage(), e);
             } catch (TimeoutException e) {
                 logger.info("time out on get the result, tring to cancel the job.");

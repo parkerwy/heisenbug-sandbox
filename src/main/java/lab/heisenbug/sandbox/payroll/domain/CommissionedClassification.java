@@ -32,7 +32,7 @@ public class CommissionedClassification extends PaymentClassification {
     private BigDecimal commissionRate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private List<SalesReceipt> salesReceipts = new LinkedList<SalesReceipt>();
+    private List<SalesReceipt> salesReceipts = new LinkedList<>();
 
     public CommissionedClassification() {
         super(PaymentSchedule.BIWEEKLY);
@@ -63,6 +63,7 @@ public class CommissionedClassification extends PaymentClassification {
         saleReceipt.setOwner(this);
     }
 
+    @Override
     public BigDecimal calculatePay(DateTime date) {
         return salary;
     }

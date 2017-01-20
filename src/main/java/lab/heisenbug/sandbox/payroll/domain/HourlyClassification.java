@@ -28,7 +28,7 @@ public class HourlyClassification extends PaymentClassification {
     private BigDecimal rate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "owner")
-    private List<TimeCard> timeCards = new LinkedList<TimeCard>();
+    private List<TimeCard> timeCards = new LinkedList<>();
 
     public HourlyClassification() {
         super(PaymentSchedule.WEEKLY);
@@ -50,6 +50,7 @@ public class HourlyClassification extends PaymentClassification {
         this.timeCards.add(timeCard);
     }
 
+    @Override
     public BigDecimal calculatePay(DateTime date) {
         return rate;
     }

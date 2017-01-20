@@ -41,11 +41,11 @@ public class Role implements Serializable {
     private Organization organization;
 
     @ManyToOne()
-    @JoinColumn(name = "PARENT_ROLE_ID", nullable = true)
+    @JoinColumn(name = "PARENT_ROLE_ID")
     private Role parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private Set<Role> subRoles = new LinkedHashSet<Role>();
+    private Set<Role> subRoles = new LinkedHashSet<>();
 
     public String getName() {
         return name;

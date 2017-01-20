@@ -20,11 +20,9 @@ public enum PaymentSchedule implements Serializable, IPaymentSchedule {
          * @param date
          * @return
          */
+        @Override
         public boolean isPayDay(DateTime date) {
-            if (date.getDayOfWeek() == DateTimeConstants.FRIDAY) {
-                return true;
-            }
-            return false;
+            return date.getDayOfWeek() == DateTimeConstants.FRIDAY;
         }
     },
 
@@ -34,6 +32,7 @@ public enum PaymentSchedule implements Serializable, IPaymentSchedule {
          * @param date
          * @return
          */
+        @Override
         public boolean isPayDay(DateTime date) {
 
             DateTime startDate = new DateTime(2009, DateTimeConstants.JANUARY, 1, 0, 0, 0, 0);
@@ -54,6 +53,7 @@ public enum PaymentSchedule implements Serializable, IPaymentSchedule {
          * @param date
          * @return
          */
+        @Override
         public boolean isPayDay(DateTime date) {
             boolean lastWorkingDay = false;
             if (isWorkingDay(date)) {
@@ -72,12 +72,10 @@ public enum PaymentSchedule implements Serializable, IPaymentSchedule {
 
         private boolean isWorkingDay(ReadableDateTime date) {
             int day = date.getDayOfWeek();
-            if (day >= DateTimeConstants.MONDAY && day <= DateTimeConstants.FRIDAY) {
-                return true;
-            }
-            return false;
+            return day >= DateTimeConstants.MONDAY && day <= DateTimeConstants.FRIDAY;
         }
     };
 
+    @Override
     public abstract boolean isPayDay(DateTime date);
 }

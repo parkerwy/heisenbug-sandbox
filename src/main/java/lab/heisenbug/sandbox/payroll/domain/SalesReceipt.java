@@ -1,7 +1,5 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import org.joda.time.DateTime;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;

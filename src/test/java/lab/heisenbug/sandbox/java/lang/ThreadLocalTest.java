@@ -20,7 +20,7 @@ public class ThreadLocalTest {
 
     private static final Logger logger = LoggerFactory.getLogger(ThreadLocalTest.class);
 
-    private ThreadLocal<Integer> count = new ThreadLocal<Integer>();
+    private ThreadLocal<Integer> count = new ThreadLocal<>();
 
 
     @Test

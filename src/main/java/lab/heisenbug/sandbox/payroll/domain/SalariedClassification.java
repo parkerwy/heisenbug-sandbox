@@ -38,6 +38,7 @@ public class SalariedClassification extends PaymentClassification {
         this.salary = new BigDecimal(salary);
     }
 
+    @Override
     public BigDecimal calculatePay(DateTime date) {
         return salary;
     }
