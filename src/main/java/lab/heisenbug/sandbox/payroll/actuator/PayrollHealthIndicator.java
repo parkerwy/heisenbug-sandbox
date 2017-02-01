@@ -13,6 +13,6 @@ public class PayrollHealthIndicator extends AbstractHealthIndicator {
 
     @Override
     protected void doHealthCheck(Health.Builder builder) throws Exception {
-        builder.up().withDetail("token", RandomStringUtils.random(10));
+        builder.up().withDetail("token", RandomStringUtils.randomAlphabetic(10));
     }
 }
