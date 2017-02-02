@@ -30,7 +30,7 @@ public class SalesReceipt implements Serializable {
     private CommissionedClassification owner;
 
     @Column(name = "EFFECTIVE_DATE")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Calendar date;
 
     @Column(name = "AMOUNT")

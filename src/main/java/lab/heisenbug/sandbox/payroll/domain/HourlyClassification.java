@@ -1,6 +1,6 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedule;
+import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedules;
 import org.joda.time.DateTime;
 
 import javax.persistence.CascadeType;
@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class HourlyClassification extends PaymentClassification {
+public class HourlyClassification extends BasePaymentClassification {
 
     @Digits(integer = 11, fraction = 2)
     @Column(name = "HOUR_RATE")
@@ -31,7 +31,7 @@ public class HourlyClassification extends PaymentClassification {
     private List<TimeCard> timeCards = new LinkedList<>();
 
     public HourlyClassification() {
-        super(PaymentSchedule.WEEKLY);
+        super(PaymentSchedules.WEEKLY);
     }
 
     public BigDecimal getRate() {
@@ -48,6 +48,7 @@ public class HourlyClassification extends PaymentClassification {
 
     public void addTimeCard(TimeCard timeCard) {
         this.timeCards.add(timeCard);
+        timeCard.setOwner(this);
     }
 
     @Override

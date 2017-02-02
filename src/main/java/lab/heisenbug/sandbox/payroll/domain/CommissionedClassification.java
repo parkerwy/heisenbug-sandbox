@@ -1,6 +1,6 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedule;
+import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedules;
 import org.joda.time.DateTime;
 
 import javax.persistence.CascadeType;
@@ -21,7 +21,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class CommissionedClassification extends PaymentClassification {
+public class CommissionedClassification extends BasePaymentClassification {
 
     @Digits(integer = 11, fraction = 2)
     @Column(name = "BASE_SALARY")
@@ -35,7 +35,7 @@ public class CommissionedClassification extends PaymentClassification {
     private List<SalesReceipt> salesReceipts = new LinkedList<>();
 
     public CommissionedClassification() {
-        super(PaymentSchedule.BIWEEKLY);
+        super(PaymentSchedules.BIWEEKLY);
     }
 
     public BigDecimal getSalary() {

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class HoldMethod extends PaymentMethod {
+public class HoldMethod extends BasePaymentMethod {
 
     @Override
     public void pay(BigDecimal amount) {

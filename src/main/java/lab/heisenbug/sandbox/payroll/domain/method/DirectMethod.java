@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class DirectMethod extends PaymentMethod {
+public class DirectMethod extends BasePaymentMethod {
 
     @Column(name = "BANK")
     @Enumerated(EnumType.STRING)

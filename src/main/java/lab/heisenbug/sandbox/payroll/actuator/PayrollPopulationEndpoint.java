@@ -1,10 +1,12 @@
 package lab.heisenbug.sandbox.payroll.actuator;
 
-import lab.heisenbug.sandbox.payroll.domain.CommissionedClassification;
-import lab.heisenbug.sandbox.payroll.domain.Employee;
-import lab.heisenbug.sandbox.payroll.domain.SalesReceipt;
-import lab.heisenbug.sandbox.payroll.domain.method.Bank;
-import lab.heisenbug.sandbox.payroll.domain.method.DirectMethod;
+import com.github.javafaker.Faker;
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
+import io.codearte.jfairy.producer.person.PersonProperties;
+import lab.heisenbug.sandbox.payroll.domain.*;
+import lab.heisenbug.sandbox.payroll.domain.method.BasePaymentMethod;
+import lab.heisenbug.sandbox.payroll.domain.method.PaymentMethods;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.endpoint.AbstractEndpoint;
@@ -12,7 +14,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.math.RoundingMode;
 
 /**
  * Created by parker on 19/01/2017.
@@ -21,8 +23,9 @@ import java.util.Calendar;
 @ConfigurationProperties(prefix = "payroll.population")
 public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
-
     private final EmployeeRepository employeeRepository;
+
+    private Fairy fairy = Fairy.create();
 
     @Autowired
     public PayrollPopulationEndpoint(EmployeeRepository employeeRepository) {
@@ -33,37 +36,79 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
     @Override
     public String invoke() {
         this.employeeRepository.deleteAll();
-        this.populateEmployees();
+        this.populateEmployee();
         return "Done";
     }
 
 
-    private void populateEmployees() {
-        Employee employee = new Employee();
-        employee.setName("Dominique B. Yocom");
-        employee.setPhone("+1(030)-6664177");
+    private void populateEmployee() {
 
+        for (DataGenerator<BasePaymentMethod> generator : PaymentMethods.values()) {
+            {
+                Employee employee = buildEmployee();
+                CommissionedClassification comm = buildCommissionedClassification();
+                employee.setPaymentClassification(comm);
+                employee.setPaymentMethod(generator.buildFake());
+                this.employeeRepository.save(employee);
+            }
+            {
+                Employee employee = buildEmployee();
+                SalariedClassification salar = buildSalariedClassification();
+                employee.setPaymentClassification(salar);
+                employee.setPaymentMethod(generator.buildFake());
+                this.employeeRepository.save(employee);
+            }
+            {
+                Employee employee = buildEmployee();
+                HourlyClassification hourly = buildHourlyClassification();
+                employee.setPaymentClassification(hourly);
+                employee.setPaymentMethod(generator.buildFake());
+                this.employeeRepository.save(employee);
+            }
+        }
+
+    }
+
+    private Employee buildEmployee() {
+        Person person = fairy.person(PersonProperties.ageBetween(25, 60));
+        Employee employee = new Employee();
+        employee.setName(person.getFullName());
+        employee.setPhone(person.getTelephoneNumber());
+        return employee;
+    }
+
+    private CommissionedClassification buildCommissionedClassification() {
 
         CommissionedClassification comm = new CommissionedClassification();
-        comm.setSalary(new BigDecimal("5000"));
-        comm.setCommissionRate(new BigDecimal("0.051"));
-        employee.setPaymentClassification(comm);
+        comm.setSalary(new BigDecimal(fairy.baseProducer().randomBetween(2000, 5000)));
+        comm.setCommissionRate(new BigDecimal(fairy.baseProducer().randomBetween(0.030, 0.100)).setScale(3, RoundingMode.HALF_UP));
 
-        SalesReceipt sr1 = new SalesReceipt();
-        sr1.setDate(Calendar.getInstance());
-        sr1.setAmount(new BigDecimal("1000"));
-        comm.addSalesReceipt(sr1);
+        int numberOfReceipt = fairy.baseProducer().randomBetween(1, 20);
+        for (int i = 0; i < numberOfReceipt; i++) {
+            SalesReceipt receipt = new SalesReceipt();
+            receipt.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
+            receipt.setAmount(new BigDecimal(fairy.baseProducer().randomBetween(200, 5000)));
+            comm.addSalesReceipt(receipt);
+        }
+        return comm;
+    }
 
-        SalesReceipt sr2 = new SalesReceipt();
-        sr2.setDate(Calendar.getInstance());
-        sr2.setAmount(new BigDecimal("500"));
-        comm.addSalesReceipt(sr2);
+    private SalariedClassification buildSalariedClassification() {
+        SalariedClassification salar = new SalariedClassification();
+        salar.setSalary(new BigDecimal(fairy.baseProducer().randomBetween(2000, 10000)));
+        return salar;
+    }
 
-        DirectMethod method = new DirectMethod();
-        method.setAccount("373702462614710");
-        method.setBank(Bank.BOC);
-        employee.setPaymentMethod(method);
-
-        this.employeeRepository.save(employee);
+    private HourlyClassification buildHourlyClassification() {
+        HourlyClassification hourly = new HourlyClassification();
+        hourly.setRate(new BigDecimal(fairy.baseProducer().randomBetween(10, 20)));
+        int numberOfTimeCard = fairy.baseProducer().randomBetween(1, 20);
+        for (int i = 0; i < numberOfTimeCard; i++) {
+            TimeCard timeCard = new TimeCard();
+            timeCard.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
+            timeCard.setHours(fairy.baseProducer().randomBetween(1, 8));
+            hourly.addTimeCard(timeCard);
+        }
+        return hourly;
     }
 }

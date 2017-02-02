@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class MailMethod extends PaymentMethod {
+public class MailMethod extends BasePaymentMethod {
 
     @NotNull
     @Column(name = "ADDRESS")

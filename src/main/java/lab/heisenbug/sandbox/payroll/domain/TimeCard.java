@@ -4,6 +4,7 @@ import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Created by IntelliJ IDEA.
@@ -30,7 +31,8 @@ public class TimeCard implements Serializable {
     private HourlyClassification owner;
 
     @Column(name = "EFFECTIVE_DATE")
-    private DateTime date;
+    @Temporal(TemporalType.DATE)
+    private Calendar date;
 
     @Column(name = "HOURS")
     private int hours;
@@ -43,11 +45,11 @@ public class TimeCard implements Serializable {
         this.owner = owner;
     }
 
-    public DateTime getDate() {
+    public Calendar getDate() {
         return date;
     }
 
-    public void setDate(DateTime date) {
+    public void setDate(Calendar date) {
         this.date = date;
     }
 

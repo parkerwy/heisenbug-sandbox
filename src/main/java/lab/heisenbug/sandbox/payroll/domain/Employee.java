@@ -1,6 +1,6 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import lab.heisenbug.sandbox.payroll.domain.method.PaymentMethod;
+import lab.heisenbug.sandbox.payroll.domain.method.BasePaymentMethod;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -38,13 +38,13 @@ public class Employee implements Serializable {
     @Valid
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PAYMENT_CLASS_ID")
-    private PaymentClassification paymentClassification;
+    private BasePaymentClassification paymentClassification;
 
     @NotNull
     @Valid
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "PAYMENT_METHOD_ID")
-    private PaymentMethod paymentMethod;
+    private BasePaymentMethod paymentMethod;
 
     public Long getId() {
         return id;
@@ -70,20 +70,20 @@ public class Employee implements Serializable {
         this.phone = mobilePhone;
     }
 
-    public PaymentClassification getPaymentClassification() {
+    public BasePaymentClassification getPaymentClassification() {
         return paymentClassification;
     }
 
-    public void setPaymentClassification(PaymentClassification paymentClassification) {
+    public void setPaymentClassification(BasePaymentClassification paymentClassification) {
         paymentClassification.setEmployee(this);
         this.paymentClassification = paymentClassification;
     }
 
-    public PaymentMethod getPaymentMethod() {
+    public BasePaymentMethod getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(PaymentMethod paymentMethod) {
+    public void setPaymentMethod(BasePaymentMethod paymentMethod) {
         paymentMethod.setEmployee(this);
         this.paymentMethod = paymentMethod;
     }

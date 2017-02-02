@@ -1,6 +1,6 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedule;
+import lab.heisenbug.sandbox.payroll.domain.schedule.PaymentSchedules;
 import org.joda.time.DateTime;
 
 import javax.persistence.Column;
@@ -16,14 +16,14 @@ import java.math.BigDecimal;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
-public class SalariedClassification extends PaymentClassification {
+public class SalariedClassification extends BasePaymentClassification {
 
     @Digits(integer = 11, fraction = 2)
     @Column(name = "FULL_SALARY")
     private BigDecimal salary;
 
     public SalariedClassification() {
-        super(PaymentSchedule.MONTHLY);
+        super(PaymentSchedules.MONTHLY);
     }
 
     public BigDecimal getSalary() {
