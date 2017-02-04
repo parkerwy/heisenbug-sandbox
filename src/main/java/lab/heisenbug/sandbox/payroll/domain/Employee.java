@@ -36,13 +36,13 @@ public class Employee implements Serializable {
 
     @NotNull
     @Valid
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "PAYMENT_CLASS_ID")
     private BasePaymentClassification paymentClassification;
 
     @NotNull
     @Valid
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "PAYMENT_METHOD_ID")
     private BasePaymentMethod paymentMethod;
 

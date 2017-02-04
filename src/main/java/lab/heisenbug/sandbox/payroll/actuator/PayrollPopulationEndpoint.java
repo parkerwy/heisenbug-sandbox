@@ -42,31 +42,31 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
 
     private void populateEmployee() {
-
-        for (DataGenerator<BasePaymentMethod> generator : PaymentMethods.values()) {
-            {
-                Employee employee = buildEmployee();
-                CommissionedClassification comm = buildCommissionedClassification();
-                employee.setPaymentClassification(comm);
-                employee.setPaymentMethod(generator.buildFake());
-                this.employeeRepository.save(employee);
-            }
-            {
-                Employee employee = buildEmployee();
-                SalariedClassification salar = buildSalariedClassification();
-                employee.setPaymentClassification(salar);
-                employee.setPaymentMethod(generator.buildFake());
-                this.employeeRepository.save(employee);
-            }
-            {
-                Employee employee = buildEmployee();
-                HourlyClassification hourly = buildHourlyClassification();
-                employee.setPaymentClassification(hourly);
-                employee.setPaymentMethod(generator.buildFake());
-                this.employeeRepository.save(employee);
+        for (int i = 0; i < 50; i++) {
+            for (DataGenerator<BasePaymentMethod> generator : PaymentMethods.values()) {
+                {
+                    Employee employee = buildEmployee();
+                    CommissionedClassification comm = buildCommissionedClassification();
+                    employee.setPaymentClassification(comm);
+                    employee.setPaymentMethod(generator.buildFake());
+                    this.employeeRepository.save(employee);
+                }
+                {
+                    Employee employee = buildEmployee();
+                    SalariedClassification salar = buildSalariedClassification();
+                    employee.setPaymentClassification(salar);
+                    employee.setPaymentMethod(generator.buildFake());
+                    this.employeeRepository.save(employee);
+                }
+                {
+                    Employee employee = buildEmployee();
+                    HourlyClassification hourly = buildHourlyClassification();
+                    employee.setPaymentClassification(hourly);
+                    employee.setPaymentMethod(generator.buildFake());
+                    this.employeeRepository.save(employee);
+                }
             }
         }
-
     }
 
     private Employee buildEmployee() {
