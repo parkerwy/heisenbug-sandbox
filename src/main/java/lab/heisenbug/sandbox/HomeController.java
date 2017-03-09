@@ -15,7 +15,7 @@ public class HomeController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
-    @RequestMapping("/")
+    //@RequestMapping("/")
     public ResponseEntity<String> home() {
         LOGGER.info("processing bootstrap request.");
         return new ResponseEntity<>("Hello, world!", HttpStatus.OK);

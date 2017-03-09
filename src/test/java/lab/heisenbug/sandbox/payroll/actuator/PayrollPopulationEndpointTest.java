@@ -2,6 +2,7 @@ package lab.heisenbug.sandbox.payroll.actuator;
 
 import lab.heisenbug.sandbox.SandboxApplicationTest;
 import lab.heisenbug.sandbox.payroll.domain.Employee;
+import lab.heisenbug.sandbox.payroll.domain.QEmployee;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeSpecs;
 import org.assertj.core.api.Assertions;
@@ -52,5 +53,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
                 LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName());
             }
         }
+
+        this.employeeRepository.findAll(QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));
     }
 }

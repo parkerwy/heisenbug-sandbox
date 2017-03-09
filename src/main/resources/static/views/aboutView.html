@@ -1,0 +1,35 @@
+<md-content class="md-padding">
+    <md-tabs class="md-accent">
+        <md-tab md-on-select="loadInfo()">
+            <md-tab-label>Info</md-tab-label>
+            <md-tab-body>
+                <h3>Build</h3>
+                <p>
+                    version <strong>{{info.build.version}}</strong> is built at <strong>{{info.build.time}}</strong>
+                </p>
+
+                <h3>Source Code</h3>
+                <p>
+                    <strong>{{info.git.commit.user.name}}</strong> committed <u>{{info.git.commit["id.abbrev"]}}
+                    {{info.git.commit.message.short}}</u> to branch {{info.git.branch}} at <strong>{{info.git.commit.time}}</strong>
+                </p>
+            </md-tab-body>
+        </md-tab>
+        <md-tab md-on-select="loadHealth()">
+            <md-tab-label>Health</md-tab-label>
+            <md-tab-body>
+                <h3>Status {{health.status}}</h3>
+
+                <p>
+                    <strong>{{health.db.database}}</strong> database is <strong>{{health.db.status}}</strong>.
+                </p>
+
+                <p>
+                    disk space is <strong>{{health.diskSpace.total | number:0}}</strong> in total, with <strong>{{health.diskSpace.free
+                    | number:0}}</strong>
+                    free.
+                </p>
+            </md-tab-body>
+        </md-tab>
+    </md-tabs>
+</md-content>
