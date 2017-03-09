@@ -1,7 +1,7 @@
 ---
 applications:
 - name: heisenbug-sandbox
-  memory: 768M
+  memory: 1G
   path: target/heisenbug-sandbox-1.0.0.war
-  instances: 2
+  instances: 1
 
