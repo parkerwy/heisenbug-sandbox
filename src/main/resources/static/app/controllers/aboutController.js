@@ -36,4 +36,16 @@ app.controller('aboutController', function ($scope, $log, $http) {
                 $log.error(response);
             })
     }
+
+    $scope.metrics = {};
+    $scope.loadMetrics = function () {
+        $http.get('metrics.json')
+            .then(function successCallback(response) {
+                $log.info(response.data);
+                $scope.metrics = response.data;
+                $log.info('actuator metrics loaded.');
+            }, function errorCallback(response) {
+                $log.error(response);
+            })
+    }
 });

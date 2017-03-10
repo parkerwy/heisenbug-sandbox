@@ -32,6 +32,31 @@
                 </p>
             </md-tab-body>
         </md-tab>
+        <md-tab ng-cloak md-on-select="loadMetrics()">
+            <md-tab-label>Metrics</md-tab-label>
+            <md-tab-body>
+                <h3>CPU</h3>
+                <p>
+                    <strong>{{metrics.processors}}</strong>
+                    processors, average load <strong>{{metrics["systemload.average"] | number:2}}</strong>.
+                </p>
+                <h3>Memory</h3>
+                <p>
+                    <strong>{{metrics["mem.free"] | number:0}}</strong> free / <strong>{{metrics.mem |
+                    number:0}}</strong> total
+                </p>
+                <h3>JVM</h3>
+                <p>
+                    up running for <strong>{{metrics.uptime | number:0}}</strong> milliseconds.
+                </p>
+                <p>
+                    <strong>{{metrics.threads | number:0}}</strong> threads.
+                </p>
+                <p>
+                    <strong>{{metrics["httpsessions.active"] | number:0}}</strong> active http sessions.
+                </p>
+            </md-tab-body>
+        </md-tab>
         <md-tab ng-cloak md-on-select="loadMappings()">
             <md-tab-lable>Mappings</md-tab-lable>
             <md-tab-body>
