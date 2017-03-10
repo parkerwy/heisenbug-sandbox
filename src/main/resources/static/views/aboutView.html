@@ -1,5 +1,5 @@
 <md-content class="md-padding">
-    <md-tabs class="md-accent">
+    <md-tabs class="md-accent" md-dynamic-height>
         <md-tab ng-cloak md-on-select="loadInfo()">
             <md-tab-label>Info</md-tab-label>
             <md-tab-body>
@@ -30,6 +30,18 @@
                     | number:0}}</strong>
                     free.
                 </p>
+            </md-tab-body>
+        </md-tab>
+        <md-tab ng-cloak md-on-select="loadMappings()">
+            <md-tab-lable>Mappings</md-tab-lable>
+            <md-tab-body>
+                <ul>
+                    <li ng-repeat="(key, value) in mappings">
+                        <h4>{{key}}</h4>
+                        <p>{{value.bean}}</p>
+                        <p>{{value.method}}</p>
+                    </li>
+                </ul>
             </md-tab-body>
         </md-tab>
     </md-tabs>

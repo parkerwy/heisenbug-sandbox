@@ -23,4 +23,17 @@ app.controller('aboutController', function ($scope, $log, $http) {
                 $log.error(response);
             })
     };
+
+    $scope.mappings = {};
+    $scope.loadMappings = function () {
+        $http.get('mappings.json')
+            .then(function successCallback(response) {
+                $log.info(response.data);
+                $scope.mappings = response.data;
+                delete $scope.mappings["_links"];
+                $log.info('actuator mappings loaded.');
+            }, function errorCallback(response) {
+                $log.error(response);
+            })
+    }
 });
