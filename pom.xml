@@ -34,6 +34,7 @@
     </developers>
     <properties>
         <java.version>1.7</java.version>
+        <sonar.sources>src/main</sonar.sources>
         <sonar.exclusions>file:**/generated-sources/**</sonar.exclusions>
     </properties>
     <build>

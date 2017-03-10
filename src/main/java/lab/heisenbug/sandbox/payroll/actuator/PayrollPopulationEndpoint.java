@@ -81,7 +81,7 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
         CommissionedClassification comm = new CommissionedClassification();
         comm.setSalary(new BigDecimal(fairy.baseProducer().randomBetween(2000, 5000)));
-        comm.setCommissionRate(new BigDecimal(fairy.baseProducer().randomBetween(0.030, 0.100)).setScale(3, RoundingMode.HALF_UP));
+        comm.setCommissionRate(BigDecimal.valueOf(fairy.baseProducer().randomBetween(0.030, 0.100)).setScale(3, RoundingMode.HALF_UP));
 
         int numberOfReceipt = fairy.baseProducer().randomBetween(1, 20);
         for (int i = 0; i < numberOfReceipt; i++) {

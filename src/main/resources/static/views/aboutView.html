@@ -1,6 +1,6 @@
 <md-content class="md-padding">
     <md-tabs class="md-accent">
-        <md-tab md-on-select="loadInfo()">
+        <md-tab ng-cloak md-on-select="loadInfo()">
             <md-tab-label>Info</md-tab-label>
             <md-tab-body>
                 <h3>Build</h3>
@@ -10,12 +10,13 @@
 
                 <h3>Source Code</h3>
                 <p>
-                    <strong>{{info.git.commit.user.name}}</strong> committed <u>{{info.git.commit["id.abbrev"]}}
-                    {{info.git.commit.message.short}}</u> to branch {{info.git.branch}} at <strong>{{info.git.commit.time}}</strong>
+                    <strong>{{info.git.commit.user.name}}</strong> committed [{{info.git.commit["id.abbrev"]}}]
+                    <u>{{info.git.commit.message.short}}</u> to repository <u>{{info.git.remote.origin.url}}</u> at
+                    <strong>{{info.git.commit.time}}</strong>
                 </p>
             </md-tab-body>
         </md-tab>
-        <md-tab md-on-select="loadHealth()">
+        <md-tab ng-cloak md-on-select="loadHealth()">
             <md-tab-label>Health</md-tab-label>
             <md-tab-body>
                 <h3>Status {{health.status}}</h3>
