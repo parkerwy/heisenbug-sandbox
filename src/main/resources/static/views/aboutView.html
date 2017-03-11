@@ -69,5 +69,61 @@
                 </ul>
             </md-tab-body>
         </md-tab>
+        <md-tab ng-cloak md-on-select="loadEnv()">
+            <md-tab-lable>Environment</md-tab-lable>
+            <md-tab-body>
+                <h3>Spring Profiles</h3>
+                <ul>
+                    <li ng-repeat="profile in env.profiles">
+                        {{profile}}
+                    </li>
+                </ul>
+                <h3>Runtime Settings</h3>
+                <md-tabs md-dynamic-height>
+                    <md-tab>
+                        <md-tab-lable>JVM Properties</md-tab-lable>
+                        <md-tab-body>
+                            <md-table-container>
+                                <table md-table>
+                                    <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Key</th>
+                                        <th md-column>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row ng-repeat="(key, value) in env.systemProperties">
+                                        <td md-cell>{{key}}</td>
+                                        <td md-cell>{{value}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </md-tab-body>
+                    </md-tab>
+                    <md-tab>
+                        <md-tab-lable>Environment Variables</md-tab-lable>
+                        <md-tab-body>
+                            <md-table-container>
+                                <table md-table>
+                                    <thead md-head>
+                                    <tr md-row>
+                                        <th md-column>Name</th>
+                                        <th md-column>Value</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody md-body>
+                                    <tr md-row ng-repeat="(name, value) in env.systemEnvironment">
+                                        <td md-cell>{{name}}</td>
+                                        <td md-cell>{{value}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </md-tab-body>
+                    </md-tab>
+                </md-tabs>
+            </md-tab-body>
+        </md-tab>
     </md-tabs>
 </md-content>

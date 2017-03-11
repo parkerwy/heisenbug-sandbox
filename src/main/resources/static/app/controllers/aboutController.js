@@ -28,24 +28,33 @@ app.controller('aboutController', function ($scope, $log, $http) {
     $scope.loadMappings = function () {
         $http.get('mappings.json')
             .then(function successCallback(response) {
-                $log.info(response.data);
                 $scope.mappings = response.data;
                 delete $scope.mappings["_links"];
                 $log.info('actuator mappings loaded.');
             }, function errorCallback(response) {
                 $log.error(response);
             })
-    }
+    };
 
     $scope.metrics = {};
     $scope.loadMetrics = function () {
         $http.get('metrics.json')
             .then(function successCallback(response) {
-                $log.info(response.data);
                 $scope.metrics = response.data;
                 $log.info('actuator metrics loaded.');
             }, function errorCallback(response) {
                 $log.error(response);
             })
-    }
+    };
+
+    $scope.env = {};
+    $scope.loadEnv = function () {
+        $http.get('env.json')
+            .then(function successCallback(response) {
+                $scope.env = response.data;
+                $log.info('actuator env loaded.');
+            }, function errorCallback(response) {
+                $log.error(response);
+            })
+    };
 });
