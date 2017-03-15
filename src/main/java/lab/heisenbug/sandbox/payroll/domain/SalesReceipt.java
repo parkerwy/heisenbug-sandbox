@@ -1,5 +1,9 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -27,6 +31,7 @@ public class SalesReceipt implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "OWNER_ID", nullable = false)
+    @JsonIgnore
     private CommissionedClassification owner;
 
     @Column(name = "EFFECTIVE_DATE")

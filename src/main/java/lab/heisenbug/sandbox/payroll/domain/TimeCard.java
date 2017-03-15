@@ -1,5 +1,6 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class TimeCard implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "OWNER_ID", nullable = false)
+    @JsonIgnore
     private HourlyClassification owner;
 
     @Column(name = "EFFECTIVE_DATE")

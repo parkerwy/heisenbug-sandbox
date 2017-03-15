@@ -1,8 +1,7 @@
 package lab.heisenbug.sandbox.payroll.actuator;
 
 import lab.heisenbug.sandbox.SandboxApplicationTest;
-import lab.heisenbug.sandbox.payroll.domain.Employee;
-import lab.heisenbug.sandbox.payroll.domain.QEmployee;
+import lab.heisenbug.sandbox.payroll.domain.*;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeSpecs;
 import org.assertj.core.api.Assertions;
@@ -31,7 +30,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         this.payrollPopulationEndpoint.invoke();
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofCommissionedClassification());
+            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
             for (Employee employee : employeeList) {
                 LOGGER.info("loaded employee [{}] with Commissioned Classification.", employee.getName());
@@ -39,7 +38,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         }
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofHourlyClassification());
+            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
             for (Employee employee : employeeList) {
                 LOGGER.info("loaded employee [{}] with Hourly Classification.", employee.getName());
@@ -47,7 +46,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         }
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofSalariedClassification());
+            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
             for (Employee employee : employeeList) {
                 LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName());
