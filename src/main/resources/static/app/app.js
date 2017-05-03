@@ -1,4 +1,4 @@
-var app = angular.module('App', ['ng', 'ngMaterial', 'ngRoute', 'md.data.table']);
+var app = angular.module('App', ['ng', 'ngMaterial', 'ngRoute', 'ngCookies', 'md.data.table']);
 
 app.config(function ($routeProvider) {
 

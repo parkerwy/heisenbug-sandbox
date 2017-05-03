@@ -6,11 +6,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 
 /**
  * Created by parker on 19/11/2016.
  */
 @SpringBootApplication
+@EnableOAuth2Client
 public class SandboxApplication extends SpringBootServletInitializer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SandboxApplication.class);
@@ -20,6 +22,7 @@ public class SandboxApplication extends SpringBootServletInitializer {
         SandboxApplication.LOGGER.info("building spring boot application.");
         return builder.sources(SandboxApplication.class);
     }
+
 
     public static void main(String[] args) {
         SpringApplication.run(SandboxApplication.class, args);
