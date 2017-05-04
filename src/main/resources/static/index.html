@@ -19,6 +19,7 @@
 
 <script src="app/app.js"></script>
 <script src="app/controllers/homeController.js"></script>
+<script src="app/controllers/userController.js"></script>
 <script src="app/controllers/aboutController.js"></script>
 
 <header>
@@ -26,7 +27,25 @@
         <div class="md-toolbar-tools">
             <img src="assets/image/logo.png">&nbsp;</img><a href="#!/"><h3>Heisenbug Sandbox</h3></a>
         </div>
-        <md-button href="#!/about">About</md-button>
+        <md-menu ng-controller="userController" md-position-mode="target-right target">
+            <md-button ng-click="$mdMenu.open($event)">
+                {{user.name}}
+                <md-tooltip md-direction="bottom">{{user.provider}}</md-tooltip>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <form>
+                        <md-button href="#!/about">About</md-button>
+                    </form>
+                </md-menu-item>
+                <md-menu-item>
+                    <form action="logout" method="post">
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}"/>
+                        <md-button type="submit">Logout</md-button>
+                    </form>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
     </md-toolbar>
 </header>
 <main class="md-padding" flex>

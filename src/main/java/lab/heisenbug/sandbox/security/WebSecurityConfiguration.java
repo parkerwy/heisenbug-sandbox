@@ -34,6 +34,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     private Oauth2GithubProperties github;
 
     @Autowired
+    private Oauth2GoogleProperties google;
+
+    @Autowired
     private Oauth2FacebookProperties facebook;
 
 
@@ -60,6 +63,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         CompositeFilter filter = new CompositeFilter();
         List<Filter> filters = new ArrayList<>();
         filters.add(ssoFilter(facebook, "/login/facebook"));
+        filters.add(ssoFilter(google, "/login/google"));
         filters.add(ssoFilter(github, "/login/github"));
         filter.setFilters(filters);
         return filter;

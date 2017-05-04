@@ -30,10 +30,25 @@ github:
   resource:
     userInfoUri: https://api.github.com/user
 
+google:
+  client:
+    clientId: 754362814981-sj5q55cc5buep7ncsq9d9t4l70tk0l50.apps.googleusercontent.com
+    clientSecret: x0Xgl60nsw5GdHNkUq1OIfgP
+    accessTokenUri: https://www.googleapis.com/oauth2/v4/token
+    userAuthorizationUri: https://accounts.google.com/o/oauth2/v2/auth
+    clientAuthenticationScheme: form
+    scope:
+      - openid
+      - email
+      - profile
+  resource:
+    userInfoUri: https://www.googleapis.com/oauth2/v3/userinfo
+    preferTokenInfo: true
+
 facebook:
   client:
-    clientId: 233668646673605
-    clientSecret: 33b17e044ee6a4fa383f46ec6e28ea1d
+    clientId: 1322246907867733
+    clientSecret: 30b930bdbf817333732aee246f89bc38
     accessTokenUri: https://graph.facebook.com/oauth/access_token
     userAuthorizationUri: https://www.facebook.com/dialog/oauth
     tokenName: oauth_token
