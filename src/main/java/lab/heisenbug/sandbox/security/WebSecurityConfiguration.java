@@ -2,13 +2,11 @@ package lab.heisenbug.sandbox.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoTokenServices;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientContextFilter;
@@ -20,15 +18,13 @@ import org.springframework.web.filter.CompositeFilter;
 import javax.servlet.Filter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by parker on 29/04/2017.
  */
 @Configuration
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private OAuth2ClientContext oauth2ClientContext;
 
     @Autowired
     private Oauth2GithubProperties github;
@@ -39,6 +35,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     private Oauth2FacebookProperties facebook;
 
+    @Autowired
+    private Map<Oauth2Properties, OAuth2RestTemplate> oauth2RestTemplates;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -71,11 +69,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     private Filter ssoFilter(Oauth2Properties client, String path) {
         OAuth2ClientAuthenticationProcessingFilter oAuth2ClientAuthenticationFilter = new OAuth2ClientAuthenticationProcessingFilter(path);
-        OAuth2RestTemplate oAuth2RestTemplate = new OAuth2RestTemplate(client.getClient(), oauth2ClientContext);
-        oAuth2ClientAuthenticationFilter.setRestTemplate(oAuth2RestTemplate);
+        OAuth2RestTemplate oauth2restTemplate = oauth2RestTemplates.get(client);
+        oAuth2ClientAuthenticationFilter.setRestTemplate(oauth2restTemplate);
         UserInfoTokenServices tokenServices = new UserInfoTokenServices(client.getResource().getUserInfoUri(),
                 client.getClient().getClientId());
-        tokenServices.setRestTemplate(oAuth2RestTemplate);
+        tokenServices.setRestTemplate(oauth2restTemplate);
         oAuth2ClientAuthenticationFilter.setTokenServices(tokenServices);
         return oAuth2ClientAuthenticationFilter;
     }

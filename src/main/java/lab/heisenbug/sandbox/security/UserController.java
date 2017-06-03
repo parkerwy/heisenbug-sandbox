@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,12 +26,15 @@ public class UserController {
 
     private Map<String, String> oauth2Providers = new LinkedHashMap<>();
 
+    private Map<String, OAuth2RestTemplate> oauth2RestTemplates = new LinkedHashMap<>();
+
     @Autowired
-    public UserController(List<Oauth2Properties> oauth2PropertiesList) {
+    public UserController(List<Oauth2Properties> oauth2PropertiesList, Map<Oauth2Properties, OAuth2RestTemplate> templates) {
         for (Oauth2Properties oauth2Properties : oauth2PropertiesList) {
             String clientId = oauth2Properties.getClient().getClientId();
             String provider = oauth2Properties.getClass().getAnnotation(ConfigurationProperties.class).value();
             oauth2Providers.put(clientId, provider);
+            oauth2RestTemplates.put(clientId, templates.get(oauth2Properties));
             LOGGER.info("Configured OAuth2 provider {}", provider);
         }
     }
@@ -46,8 +50,12 @@ public class UserController {
 
         userDetail.put("name", principal.getName());
 
-        String provider = oauth2Providers.get(oauth2.getOAuth2Request().getClientId());
+        String clientId = oauth2.getOAuth2Request().getClientId();
+        String provider = oauth2Providers.get(clientId);
         userDetail.put("provider", provider);
+
+        OAuth2RestTemplate oauth2RestTemplate = oauth2RestTemplates.get(clientId);
+        oauth2RestTemplate.getForObject("https://api.github.com/user/repos", String.class);
 
         return userDetail;
     }
