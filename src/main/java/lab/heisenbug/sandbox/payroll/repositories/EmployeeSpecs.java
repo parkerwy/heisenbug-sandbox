@@ -11,13 +11,10 @@ import javax.persistence.criteria.*;
 public class EmployeeSpecs {
 
     public static Specification<Employee> ofClassification(final Class<? extends BasePaymentClassification> classification) {
-        return new Specification<Employee>() {
-            @Override
-            public Predicate toPredicate(Root<Employee> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
-                criteriaQuery.orderBy(criteriaBuilder.asc(root.get(Employee_.name)));
-                Join<Employee, BasePaymentClassification> join = root.join(Employee_.paymentClassification);
-                return criteriaBuilder.equal(join.type(), criteriaBuilder.literal(classification));
-            }
+        return (root, criteriaQuery, criteriaBuilder) -> {
+            criteriaQuery.orderBy(criteriaBuilder.asc(root.get(Employee_.name)));
+            Join<Employee, BasePaymentClassification> join = root.join(Employee_.paymentClassification);
+            return criteriaBuilder.equal(join.type(), criteriaBuilder.literal(classification));
         };
     }
 }

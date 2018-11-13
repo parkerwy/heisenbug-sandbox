@@ -25,12 +25,7 @@ public class JchardetTest {
     @Test
     public void detectString() throws IOException {
         nsDetector detector = new nsDetector(nsPSMDetector.ALL);
-        detector.Init(new nsICharsetDetectionObserver() {
-            @Override
-            public void Notify(String s) {
-                logger.info("detected charset: {}", s);
-            }
-        });
+        detector.Init((s) -> logger.info("detected charset: {}", s));
 
         URL url = new URL("http://www.163.com");
         BufferedInputStream imp = new BufferedInputStream(url.openStream());
