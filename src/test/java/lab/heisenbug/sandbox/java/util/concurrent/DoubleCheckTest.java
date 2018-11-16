@@ -10,6 +10,8 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,10 +30,10 @@ public class DoubleCheckTest {
 
     @Test
     public void getSingletonInstance() throws InterruptedException {
-        List<Callable<Object>> tasks = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            tasks.add(new Task());
-        }
+        List<Callable<Object>> tasks = Stream.generate(Task::new)
+                .limit(100)
+                .collect(Collectors.toList());
+
         ScheduledThreadPoolExecutor service = new ScheduledThreadPoolExecutor(100);
         service.invokeAll(tasks);
         service.shutdown();

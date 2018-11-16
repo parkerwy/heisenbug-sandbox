@@ -32,25 +32,19 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         {
             List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            for (Employee employee : employeeList) {
-                LOGGER.info("loaded employee [{}] with Commissioned Classification.", employee.getName());
-            }
+            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Commissioned Classification.", employee.getName()));
         }
 
         {
             List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            for (Employee employee : employeeList) {
-                LOGGER.info("loaded employee [{}] with Hourly Classification.", employee.getName());
-            }
+            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Hourly Classification.", employee.getName()));
         }
 
         {
             List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            for (Employee employee : employeeList) {
-                LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName());
-            }
+            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName()));
         }
 
         this.employeeRepository.findAll(QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));

@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -12,6 +13,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,23 +32,21 @@ public class ExecutorServiceTest {
     public void timeoutOnInvoke() {
         ExecutorService service = Executors.newFixedThreadPool(2);
 
-        List<Future> results = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            Future reslut = service.submit(new Task("Job" + (i + 1)));
-            results.add(reslut);
-        }
-
-        for (Future result : results) {
-            try {
-                result.get(300, TimeUnit.MICROSECONDS);
-            } catch (InterruptedException | ExecutionException e) {
-                logger.error(e.getMessage(), e);
-            } catch (TimeoutException e) {
-                logger.info("time out on get the result, tring to cancel the job.");
-                result.cancel(true);
-            }
-        }
+        IntStream.rangeClosed(1, 10)
+                .parallel()
+                .mapToObj(i -> "Job" + i)
+                .map(Task::new)
+                .map(service::submit)
+                .forEach(result -> {
+                    try {
+                        result.get(300, TimeUnit.MICROSECONDS);
+                    } catch (InterruptedException | ExecutionException e) {
+                        logger.error(e.getMessage(), e);
+                    } catch (TimeoutException e) {
+                        logger.info("time out on get the result, tring to cancel the job.");
+                        result.cancel(true);
+                    }
+                });
     }
 
     private static class Task implements Runnable {
@@ -64,10 +66,7 @@ public class ExecutorServiceTest {
         @Override
         public void run() {
             logger.info("job {} started running on thread {}.", name, Thread.currentThread().hashCode());
-            long x = 0;
-            for (int i = 0; i < 900000000; i++) {
-                x = x * i;
-            }
+            long x = LongStream.rangeClosed(1, 900000000).reduce(1, (a, b) -> a * b);
             logger.info("job {} completed running.", name);
         }
     }

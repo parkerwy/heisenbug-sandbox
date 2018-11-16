@@ -16,14 +16,14 @@ import java.security.SecureRandom;
  */
 
 public class SecureRandomTest {
-    
+
     private static final Logger logger = LoggerFactory.getLogger(SecureRandomTest.class);
 
     @Test
     public void testGenRandom() throws NoSuchAlgorithmException {
         SecureRandom sr = SecureRandom.getInstance("SHA1PRNG");
-        for (int i = 0; i < 100; i++) {
-            logger.info(Float.toString(sr.nextFloat()));
-        }
+        sr.doubles(100).forEach(
+                (n) -> logger.info(Double.toString(n))
+        );
     }
 }

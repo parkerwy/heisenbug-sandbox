@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 
 import java.security.Provider;
 import java.security.Security;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Set;
 
 /**
@@ -21,20 +23,15 @@ public class ServiceProviderTest {
 
     @Test
     public void dumpServiceInfo() {
-        Provider[] providers = Security.getProviders();
-        for( Provider provider : providers){
-            Set<Provider.Service> services =  provider.getServices();
-            for( Provider.Service service : services){
-                StringBuilder builder = new StringBuilder();
-                builder.append(provider.getName());
-                builder.append("\t");
-                builder.append(service.getAlgorithm());
-                builder.append("\t");
-                builder.append(service.getType());
-                logger.info(builder.toString());
-            }
-        }
+        Arrays.stream(Security.getProviders())
+                .flatMap((provider) -> provider.getServices().stream())
+                .sorted(Comparator.comparing((Provider.Service s) -> s.getProvider().getName())
+                        .thenComparing(Provider.Service::getAlgorithm))
+                .forEach(
+                        (service) -> logger.info("{}\t{}\t{}",
+                                service.getProvider().getName(),
+                                service.getAlgorithm(),
+                                service.getType())
+                );
     }
-
-    
 }

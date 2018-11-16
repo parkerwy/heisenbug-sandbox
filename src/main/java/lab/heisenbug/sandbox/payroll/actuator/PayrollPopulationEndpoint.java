@@ -15,6 +15,9 @@ import org.springframework.stereotype.Controller;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Created by parker on 19/01/2017.
@@ -42,31 +45,33 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
 
     private void populateEmployee() {
-        for (int i = 0; i < 50; i++) {
-            for (DataGenerator<BasePaymentMethod> generator : PaymentMethods.values()) {
-                {
-                    Employee employee = buildEmployee();
-                    CommissionedClassification comm = buildCommissionedClassification();
-                    employee.setPaymentClassification(comm);
-                    employee.setPaymentMethod(generator.buildFake());
-                    this.employeeRepository.save(employee);
-                }
-                {
-                    Employee employee = buildEmployee();
-                    SalariedClassification salar = buildSalariedClassification();
-                    employee.setPaymentClassification(salar);
-                    employee.setPaymentMethod(generator.buildFake());
-                    this.employeeRepository.save(employee);
-                }
-                {
-                    Employee employee = buildEmployee();
-                    HourlyClassification hourly = buildHourlyClassification();
-                    employee.setPaymentClassification(hourly);
-                    employee.setPaymentMethod(generator.buildFake());
-                    this.employeeRepository.save(employee);
-                }
-            }
-        }
+        IntStream.rangeClosed(1, 50).boxed().collect(Collectors.toList()).forEach(
+                (i) -> Arrays.asList(PaymentMethods.values()).forEach(
+                        generator -> {
+                            {
+                                Employee employee = buildEmployee();
+                                CommissionedClassification comm = buildCommissionedClassification();
+                                employee.setPaymentClassification(comm);
+                                employee.setPaymentMethod(generator.buildFake());
+                                this.employeeRepository.save(employee);
+                            }
+                            {
+                                Employee employee = buildEmployee();
+                                SalariedClassification salar = buildSalariedClassification();
+                                employee.setPaymentClassification(salar);
+                                employee.setPaymentMethod(generator.buildFake());
+                                this.employeeRepository.save(employee);
+                            }
+                            {
+                                Employee employee = buildEmployee();
+                                HourlyClassification hourly = buildHourlyClassification();
+                                employee.setPaymentClassification(hourly);
+                                employee.setPaymentMethod(generator.buildFake());
+                                this.employeeRepository.save(employee);
+                            }
+                        }
+                )
+        );
     }
 
     private Employee buildEmployee() {
@@ -84,12 +89,14 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
         comm.setCommissionRate(BigDecimal.valueOf(fairy.baseProducer().randomBetween(0.030, 0.100)).setScale(3, RoundingMode.HALF_UP));
 
         int numberOfReceipt = fairy.baseProducer().randomBetween(1, 20);
-        for (int i = 0; i < numberOfReceipt; i++) {
-            SalesReceipt receipt = new SalesReceipt();
-            receipt.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
-            receipt.setAmount(new BigDecimal(fairy.baseProducer().randomBetween(200, 5000)));
-            comm.addSalesReceipt(receipt);
-        }
+        IntStream.rangeClosed(1, numberOfReceipt).forEach(
+                (i) -> {
+                    SalesReceipt receipt = new SalesReceipt();
+                    receipt.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
+                    receipt.setAmount(new BigDecimal(fairy.baseProducer().randomBetween(200, 5000)));
+                    comm.addSalesReceipt(receipt);
+                }
+        );
         return comm;
     }
 
@@ -103,12 +110,14 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
         HourlyClassification hourly = new HourlyClassification();
         hourly.setRate(new BigDecimal(fairy.baseProducer().randomBetween(10, 20)));
         int numberOfTimeCard = fairy.baseProducer().randomBetween(1, 20);
-        for (int i = 0; i < numberOfTimeCard; i++) {
-            TimeCard timeCard = new TimeCard();
-            timeCard.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
-            timeCard.setHours(fairy.baseProducer().randomBetween(1, 8));
-            hourly.addTimeCard(timeCard);
-        }
+        IntStream.rangeClosed(1, numberOfTimeCard).forEach(
+                (i) -> {
+                    TimeCard timeCard = new TimeCard();
+                    timeCard.setDate(fairy.dateProducer().randomDateInThePast(1).toGregorianCalendar());
+                    timeCard.setHours(fairy.baseProducer().randomBetween(1, 8));
+                    hourly.addTimeCard(timeCard);
+                }
+        );
         return hourly;
     }
 }

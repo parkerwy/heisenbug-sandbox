@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,12 +29,9 @@ public class ThreadLocalTest {
         logger.info("Started.");
 
         ExecutorService service = Executors.newFixedThreadPool(6);
-        service.execute(new ThreadLocalAccessor(this));
-        service.execute(new ThreadLocalAccessor(this));
-        service.execute(new ThreadLocalAccessor(this));
-        service.execute(new ThreadLocalAccessor(this));
-        service.execute(new ThreadLocalAccessor(this));
-        service.execute(new ThreadLocalAccessor(this));
+        IntStream.rangeClosed(1, 5).forEach(
+                (i) -> service.execute(new ThreadLocalAccessor(this))
+        );
 
         service.shutdown();
         service.awaitTermination(60, TimeUnit.SECONDS);
@@ -53,18 +51,19 @@ public class ThreadLocalTest {
 
         @Override
         public void run() {
-            try {
-                String name = Thread.currentThread().getName();
-                for (int i = 0; i < 10; i++) {
-                    int duration = (int) (random.nextFloat() * 1000);
-                    target.count.set(duration);
-                    logger.info("{} set ===> {}", name, duration);
-                    Thread.sleep(duration);
-                    logger.info("{} get <--- {}", name, target.count.get());
-                }
-            } catch (InterruptedException e) {
-                logger.error(e.getMessage(), e);
-            }
+            String name = Thread.currentThread().getName();
+            random.ints(10L, 0, 1000).forEach(
+                    (duration) -> {
+                        try {
+                            target.count.set(duration);
+                            logger.info("{} set ===> {}", name, duration);
+                            Thread.sleep(duration);
+                            logger.info("{} get <--- {}", name, target.count.get());
+                        } catch (InterruptedException e) {
+                            logger.error(e.getMessage(), e);
+                        }
+                    }
+            );
         }
     }
 }
