@@ -9,7 +9,11 @@ import lab.heisenbug.sandbox.payroll.domain.method.BasePaymentMethod;
 import lab.heisenbug.sandbox.payroll.domain.method.PaymentMethods;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.AbstractEndpoint;
+import org.springframework.boot.actuate.endpoint.AbstractExposableEndpoint;
+import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.web.WebOperation;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Controller;
 
@@ -23,8 +27,9 @@ import java.util.stream.IntStream;
  * Created by parker on 19/01/2017.
  */
 @Controller
+@WebEndpoint(id = "payrollPopulation")
 @ConfigurationProperties(prefix = "payroll.population")
-public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
+public class PayrollPopulationEndpoint{
 
     private final EmployeeRepository employeeRepository;
 
@@ -32,12 +37,11 @@ public class PayrollPopulationEndpoint extends AbstractEndpoint<String> {
 
     @Autowired
     public PayrollPopulationEndpoint(EmployeeRepository employeeRepository) {
-        super("payrollPopulation");
         this.employeeRepository = employeeRepository;
     }
 
-    @Override
-    public String invoke() {
+    @WriteOperation
+    public String populate() {
         this.employeeRepository.deleteAll();
         this.populateEmployee();
         return "Done";

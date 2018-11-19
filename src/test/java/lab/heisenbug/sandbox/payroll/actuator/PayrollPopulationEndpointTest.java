@@ -27,7 +27,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
 
     @Test
     public void shouldPopulateData() throws Exception {
-        this.payrollPopulationEndpoint.invoke();
+        this.payrollPopulationEndpoint.populate();
 
         {
             List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
