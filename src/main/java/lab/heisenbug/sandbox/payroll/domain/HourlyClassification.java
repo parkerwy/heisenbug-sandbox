@@ -23,6 +23,8 @@ import java.util.List;
 @Entity
 public class HourlyClassification extends BasePaymentClassification {
 
+    private static final long serialVersionUID = 2513610226239900983L;
+
     @Digits(integer = 11, fraction = 2)
     @Column(name = "HOUR_RATE")
     private BigDecimal rate;

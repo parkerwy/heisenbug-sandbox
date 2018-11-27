@@ -1,28 +1,20 @@
 package lab.heisenbug.sandbox.java.util.concurrent;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.LongStream;
-
 /**
- * Created by IntelliJ IDEA.
- * User: parker
- * Date: 1/30/11
- * Time: 9:32 PM
- * To change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: parker Date: 1/30/11 Time: 9:32 PM To change
+ * this template use File | Settings | File Templates.
  */
 public class ExecutorServiceTest {
 

@@ -1,27 +1,28 @@
 package lab.heisenbug.sandbox.payroll.actuator;
 
-import com.github.javafaker.Faker;
-import io.codearte.jfairy.Fairy;
-import io.codearte.jfairy.producer.person.Person;
-import io.codearte.jfairy.producer.person.PersonProperties;
-import lab.heisenbug.sandbox.payroll.domain.*;
-import lab.heisenbug.sandbox.payroll.domain.method.BasePaymentMethod;
-import lab.heisenbug.sandbox.payroll.domain.method.PaymentMethods;
-import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.actuate.endpoint.AbstractExposableEndpoint;
-import org.springframework.boot.actuate.endpoint.annotation.Endpoint;
-import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
-import org.springframework.boot.actuate.endpoint.web.WebOperation;
-import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Controller;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.actuate.endpoint.annotation.WriteOperation;
+import org.springframework.boot.actuate.endpoint.web.annotation.WebEndpoint;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Controller;
+
+import io.codearte.jfairy.Fairy;
+import io.codearte.jfairy.producer.person.Person;
+import io.codearte.jfairy.producer.person.PersonProperties;
+import lab.heisenbug.sandbox.payroll.domain.CommissionedClassification;
+import lab.heisenbug.sandbox.payroll.domain.Employee;
+import lab.heisenbug.sandbox.payroll.domain.HourlyClassification;
+import lab.heisenbug.sandbox.payroll.domain.SalariedClassification;
+import lab.heisenbug.sandbox.payroll.domain.SalesReceipt;
+import lab.heisenbug.sandbox.payroll.domain.TimeCard;
+import lab.heisenbug.sandbox.payroll.domain.method.PaymentMethods;
+import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 
 /**
  * Created by parker on 19/01/2017.

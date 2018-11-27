@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by parker on 20/01/2017.
@@ -48,5 +49,8 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         }
 
         this.employeeRepository.findAll(QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));
+
+        Optional<Employee> employee = this.employeeRepository.findByName("Parker");
+        LOGGER.info("Loaded employee {}", employee.orElse(Employee.UNKNOWN).getName());
     }
 }

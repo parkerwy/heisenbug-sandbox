@@ -23,6 +23,8 @@ import java.util.List;
 @Entity
 public class CommissionedClassification extends BasePaymentClassification {
 
+    private static final long serialVersionUID = -6258489619766346902L;
+
     @Digits(integer = 11, fraction = 2)
     @Column(name = "BASE_SALARY")
     private BigDecimal salary;

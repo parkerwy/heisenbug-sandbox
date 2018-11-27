@@ -9,3 +9,10 @@ buildNumber.properties
 .mvn/timing.properties
 *.iml
 /.idea
+/.vscode
+/.project
+/bin
+/.settings
+/.classpath
+/.factorypath
+/.apt_generated_tests

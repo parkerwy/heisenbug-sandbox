@@ -15,6 +15,8 @@ import java.math.BigDecimal;
 @Entity
 public class MailMethod extends BasePaymentMethod {
 
+    private static final long serialVersionUID = -2314353651581525798L;
+    
     @NotNull
     @Column(name = "ADDRESS")
     private String address;

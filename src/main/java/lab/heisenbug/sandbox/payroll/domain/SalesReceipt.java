@@ -1,20 +1,26 @@
 package lab.heisenbug.sandbox.payroll.domain;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
-import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Version;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * Created by IntelliJ IDEA.
- * Subject: parker
- * Date: Oct 31, 2010
- * Time: 10:30:26 AM
- * To change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. Subject: parker Date: Oct 31, 2010 Time: 10:30:26
+ * AM To change this template use File | Settings | File Templates.
  */
 @Entity
 @Table(name = "SALES_RECEIPTS")

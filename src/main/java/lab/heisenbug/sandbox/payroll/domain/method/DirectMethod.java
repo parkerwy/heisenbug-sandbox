@@ -16,6 +16,8 @@ import java.math.BigDecimal;
 @Entity
 public class DirectMethod extends BasePaymentMethod {
 
+    private static final long serialVersionUID = -4791724365949606448L;
+
     @Column(name = "BANK")
     @Enumerated(EnumType.STRING)
     private Bank bank;

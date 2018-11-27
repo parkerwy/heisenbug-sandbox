@@ -21,6 +21,8 @@ public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public static final Employee UNKNOWN = new Employee();
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

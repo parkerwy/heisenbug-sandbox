@@ -13,6 +13,8 @@ import java.math.BigDecimal;
 @Entity
 public class HoldMethod extends BasePaymentMethod {
 
+    private static final long serialVersionUID = -7704323025336729386L;
+
     @Override
     public void pay(BigDecimal amount) {
         //To change body of implemented methods use File | Settings | File Templates.

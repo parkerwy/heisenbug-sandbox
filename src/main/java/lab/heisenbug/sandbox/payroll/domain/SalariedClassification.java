@@ -18,6 +18,8 @@ import java.math.BigDecimal;
 @Entity
 public class SalariedClassification extends BasePaymentClassification {
 
+    private static final long serialVersionUID = 1617758967769017159L;
+    
     @Digits(integer = 11, fraction = 2)
     @Column(name = "FULL_SALARY")
     private BigDecimal salary;

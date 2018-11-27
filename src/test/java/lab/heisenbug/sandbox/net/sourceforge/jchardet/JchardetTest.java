@@ -1,22 +1,18 @@
 package lab.heisenbug.sandbox.net.sourceforge.jchardet;
 
-import org.junit.Test;
-import org.mozilla.intl.chardet.nsDetector;
-import org.mozilla.intl.chardet.nsICharsetDetectionObserver;
-import org.mozilla.intl.chardet.nsPSMDetector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
 
+import org.junit.Test;
+import org.mozilla.intl.chardet.nsDetector;
+import org.mozilla.intl.chardet.nsPSMDetector;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
- * Created by IntelliJ IDEA.
- * User: parker
- * Date: Nov 7, 2010
- * Time: 10:17:25 AM
- * To change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: parker Date: Nov 7, 2010 Time: 10:17:25 AM To
+ * change this template use File | Settings | File Templates.
  */
 public class JchardetTest {
 
