@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.reactivex.Observable;
+import io.reactivex.schedulers.Schedulers;
 
 public class ConcurrencyTest {
 
@@ -12,10 +13,11 @@ public class ConcurrencyTest {
 
     @Test
     public void shouldBookTicket() throws Exception {
-        Observable<String> flight = rxLookupFlight("XXX123");
-        Observable<String> passenger = rxLookupPassenger("Parker");
-        Observable<String> ticket = flight.zipWith(passenger, (f, p) -> bookTicket(f, p));
-        ticket.subscribe(LOGGER::info);
+        LOGGER.info("start booking.");
+        Observable
+                .zip(rxLookupFlight("XXX123").subscribeOn(Schedulers.io()),
+                        rxLookupPassenger("Parker").subscribeOn(Schedulers.io()), this::bookTicket)
+                .subscribe(LOGGER::info);
     }
 
     private String lookupFlight(String flightNo) {
