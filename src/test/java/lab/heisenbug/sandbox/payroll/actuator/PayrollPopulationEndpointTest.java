@@ -4,6 +4,8 @@ import lab.heisenbug.sandbox.SandboxApplicationTest;
 import lab.heisenbug.sandbox.payroll.domain.*;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
 import lab.heisenbug.sandbox.payroll.repositories.EmployeeSpecs;
+import lab.heisenbug.sandbox.payroll.repositories.ReactiveRepository;
+
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -31,26 +33,37 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         this.payrollPopulationEndpoint.populate();
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
+            List<Employee> employeeList = this.employeeRepository
+                    .findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Commissioned Classification.", employee.getName()));
+            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Commissioned Classification.",
+                    employee.getName()));
         }
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
+            List<Employee> employeeList = this.employeeRepository
+                    .findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Hourly Classification.", employee.getName()));
+            employeeList.forEach(
+                    employee -> LOGGER.info("loaded employee [{}] with Hourly Classification.", employee.getName()));
         }
 
         {
-            List<Employee> employeeList = this.employeeRepository.findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
+            List<Employee> employeeList = this.employeeRepository
+                    .findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
             Assertions.assertThat(employeeList).isNotEmpty();
-            employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName()));
+            employeeList.forEach(
+                    employee -> LOGGER.info("loaded employee [{}] with Salaried Classification.", employee.getName()));
         }
 
-        this.employeeRepository.findAll(QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));
+        this.employeeRepository
+                .findAll(QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));
 
         Optional<Employee> employee = this.employeeRepository.findByName("Parker");
         LOGGER.info("Loaded employee {}", employee.orElse(Employee.UNKNOWN).getName());
+
+        ReactiveRepository.createFlux(() -> employeeRepository.findAll()).log().subscribe();
+
     }
+
 }

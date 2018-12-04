@@ -3,6 +3,7 @@ package lab.heisenbug.sandbox;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -13,18 +14,10 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
  */
 @SpringBootApplication
 @EnableOAuth2Client
-public class SandboxApplication extends SpringBootServletInitializer {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(SandboxApplication.class);
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        SandboxApplication.LOGGER.info("building spring boot application.");
-        return builder.sources(SandboxApplication.class);
-    }
-
-
+public class SandboxApplication {
     public static void main(String[] args) {
-        SpringApplication.run(SandboxApplication.class, args);
+        SpringApplication app = new SpringApplication(SandboxApplication.class);
+        app.setWebApplicationType(WebApplicationType.REACTIVE);
+        app.run(args);
     }
 }
