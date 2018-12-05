@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,47 +35,47 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         @Autowired
         private EmployeeRepository employeeRepository;
 
-        @Test
-        public void shouldPopulateData() throws Exception {
+        @BeforeClass
+        public void setup() {
                 this.payrollPopulationEndpoint.populate();
+        }
 
-                // Test JPA Specification
-                {
-                        List<Employee> employeeList = this.employeeRepository
-                                        .findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
-                        Assertions.assertThat(employeeList).isNotEmpty();
-                        employeeList.forEach(employee -> LOGGER.info(
-                                        "loaded employee [{}] with Commissioned Classification.", employee.getName()));
-                }
+        @Test
+        public void shouldQueryWithJPASpecification() throws Exception {
 
-                {
-                        List<Employee> employeeList = this.employeeRepository
-                                        .findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
-                        Assertions.assertThat(employeeList).isNotEmpty();
-                        employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Hourly Classification.",
-                                        employee.getName()));
-                }
+                List<Employee> employeeList = this.employeeRepository
+                                .findAll(EmployeeSpecs.ofClassification(CommissionedClassification.class));
+                Assertions.assertThat(employeeList).isNotEmpty();
+                employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Commissioned Classification.",
+                                employee.getName()));
 
-                {
-                        List<Employee> employeeList = this.employeeRepository
-                                        .findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
-                        Assertions.assertThat(employeeList).isNotEmpty();
-                        employeeList.forEach(employee -> LOGGER.info(
-                                        "loaded employee [{}] with Salaried Classification.", employee.getName()));
-                }
+                employeeList = this.employeeRepository
+                                .findAll(EmployeeSpecs.ofClassification(HourlyClassification.class));
+                Assertions.assertThat(employeeList).isNotEmpty();
+                employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Hourly Classification.",
+                                employee.getName()));
 
-                // Test QueryDSL API
+                employeeList = this.employeeRepository
+                                .findAll(EmployeeSpecs.ofClassification(SalariedClassification.class));
+                Assertions.assertThat(employeeList).isNotEmpty();
+                employeeList.forEach(employee -> LOGGER.info("loaded employee [{}] with Salaried Classification.",
+                                employee.getName()));
+
+        }
+
+        @Test
+        public void shouldQueryWithQueryDSLAPI() throws Exception {
                 this.employeeRepository.findAll(
                                 QEmployee.employee.name.startsWith("P").and(QEmployee.employee.phone.endsWith("9")));
 
                 Optional<Employee> employee = this.employeeRepository.findByName("Parker");
                 LOGGER.info("Loaded employee {}", employee.orElse(Employee.UNKNOWN).getName());
+        }
 
-                // Test Reactive API
+        @Test
+        public void shouldQueryWithReactiveAPI() throws Exception {
                 Flux<Employee> employees = ReactiveRepository.createFlux(() -> employeeRepository.findAll())
                                 .publishOn(Schedulers.elastic()).log();
                 employees.subscribe();
-
         }
-
 }

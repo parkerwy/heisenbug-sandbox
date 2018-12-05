@@ -60,7 +60,7 @@ facebook:
 
 logging:
   level:
-    org.hibernate.SQL: DEBUG
+    org.hibernate.SQL: INFO
     org.springframework.security.oauth2: DEBUG
     org.springframework.http: DEBUG
     org.springframework.security.web.util.matcher: INFO
