@@ -3,7 +3,7 @@ package lab.heisenbug.sandbox.net.sourceforge.jchardet;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.net.URL;
-
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mozilla.intl.chardet.nsDetector;
 import org.mozilla.intl.chardet.nsPSMDetector;
@@ -11,19 +11,20 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Created by IntelliJ IDEA. User: parker Date: Nov 7, 2010 Time: 10:17:25 AM To
- * change this template use File | Settings | File Templates.
+ * Created by IntelliJ IDEA. User: parker Date: Nov 7, 2010 Time: 10:17:25 AM To change this
+ * template use File | Settings | File Templates.
  */
 public class JchardetTest {
 
     private static final Logger logger = LoggerFactory.getLogger(JchardetTest.class);
 
     @Test
+    @Ignore
     public void detectString() throws IOException {
         nsDetector detector = new nsDetector(nsPSMDetector.ALL);
         detector.Init((s) -> logger.info("detected charset: {}", s));
 
-        URL url = new URL("http://www.163.com");
+        URL url = new URL("https://www.163.com");
         BufferedInputStream imp = new BufferedInputStream(url.openStream());
 
         byte[] buf = new byte[1024];
