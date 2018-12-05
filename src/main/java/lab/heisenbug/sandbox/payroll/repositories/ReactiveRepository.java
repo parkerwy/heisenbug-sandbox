@@ -6,19 +6,18 @@ import java.util.function.Supplier;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Schedulers;
 
 public interface ReactiveRepository {
 
     static <T extends Object> Flux<T> createFlux(Supplier<List<T>> supplier) {
-        return Flux.defer(() -> Flux.fromIterable(supplier.get())).publishOn(Schedulers.elastic());
+        return Flux.defer(() -> Flux.fromIterable(supplier.get()));
     }
 
     static <T extends Object> Mono<T> createMono(Supplier<T> supplier) {
-        return Mono.defer(() -> Mono.fromSupplier(supplier)).publishOn(Schedulers.elastic());
+        return Mono.defer(() -> Mono.fromSupplier(supplier));
     }
 
     static <T extends Object> Mono<Optional<T>> createOptionalMono(Supplier<Optional<T>> supplier) {
-        return Mono.defer(() -> Mono.fromSupplier(supplier)).publishOn(Schedulers.elastic());
+        return Mono.defer(() -> Mono.fromSupplier(supplier));
     }
 }
