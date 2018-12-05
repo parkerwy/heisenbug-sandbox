@@ -3,7 +3,6 @@ package lab.heisenbug.sandbox.rxjava;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 
