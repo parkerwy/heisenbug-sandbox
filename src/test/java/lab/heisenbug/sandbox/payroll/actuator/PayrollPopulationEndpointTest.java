@@ -1,12 +1,7 @@
 package lab.heisenbug.sandbox.payroll.actuator;
 
-import lab.heisenbug.sandbox.SandboxApplicationTest;
-import lab.heisenbug.sandbox.payroll.domain.*;
-import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
-import lab.heisenbug.sandbox.payroll.repositories.EmployeeSpecs;
-import lab.heisenbug.sandbox.payroll.repositories.ReactiveRepository;
-import reactor.core.publisher.Flux;
-import reactor.core.scheduler.Schedulers;
+import java.util.List;
+import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Test;
@@ -14,10 +9,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.Optional;
-
-import com.querydsl.core.types.dsl.BooleanExpression;
+import lab.heisenbug.sandbox.SandboxApplicationTest;
+import lab.heisenbug.sandbox.payroll.domain.CommissionedClassification;
+import lab.heisenbug.sandbox.payroll.domain.Employee;
+import lab.heisenbug.sandbox.payroll.domain.HourlyClassification;
+import lab.heisenbug.sandbox.payroll.domain.QEmployee;
+import lab.heisenbug.sandbox.payroll.domain.SalariedClassification;
+import lab.heisenbug.sandbox.payroll.repositories.EmployeeRepository;
+import lab.heisenbug.sandbox.payroll.repositories.EmployeeSpecs;
+import lab.heisenbug.sandbox.payroll.repositories.ReactiveRepository;
+import reactor.core.publisher.Flux;
+import reactor.core.scheduler.Schedulers;
 
 /**
  * Created by parker on 20/01/2017.
