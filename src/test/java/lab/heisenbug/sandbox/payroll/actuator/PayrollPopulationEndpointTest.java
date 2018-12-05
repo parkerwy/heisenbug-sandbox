@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext.MethodMode;
 
 import lab.heisenbug.sandbox.SandboxApplicationTest;
 import lab.heisenbug.sandbox.payroll.domain.CommissionedClassification;
@@ -25,6 +27,7 @@ import reactor.core.scheduler.Schedulers;
 /**
  * Created by parker on 20/01/2017.
  */
+@DirtiesContext(methodMode = MethodMode.AFTER_METHOD)
 public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
 
         private static final Logger LOGGER = LoggerFactory.getLogger(PayrollPopulationEndpointTest.class);
@@ -35,7 +38,7 @@ public class PayrollPopulationEndpointTest extends SandboxApplicationTest {
         @Autowired
         private EmployeeRepository employeeRepository;
 
-        @BeforeClass
+        @Before
         public void setup() {
                 this.payrollPopulationEndpoint.populate();
         }
