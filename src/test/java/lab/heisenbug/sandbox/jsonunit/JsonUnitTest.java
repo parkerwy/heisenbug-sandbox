@@ -19,8 +19,20 @@ public class JsonUnitTest {
             "  \"cases\": []         \n" +
             "}                       \n" ;
 
+    private static String foobar = " \n" +
+            "{                       \n" +
+            "  \"activated\": true,  \n" +
+            "  \"name\": \"John \",  \n" +
+            "  \"cases\": [1, 2]     \n" +
+            "}                       \n" ;
+
     @Test
     public void shouldFindJsonStringsEquals() throws Exception {
         JsonAssert.assertJsonEquals(foo, bar);
+    }
+
+    @Test(expected = AssertionError.class)
+    public void shouldThrowAssertionError() throws Exception {
+        JsonAssert.assertJsonEquals(foo, foobar);
     }
 }
